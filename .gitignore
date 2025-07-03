@@ -66,3 +66,6 @@ amplify/backend/*/latest-build.zip
 .env.*
 .pytest_cache
 enzocosson_accessKeys.csv
+
+.venv/
+/.venv/
