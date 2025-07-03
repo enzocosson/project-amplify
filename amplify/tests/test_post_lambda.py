@@ -4,12 +4,12 @@ import pytest
 from moto import mock_aws
 import boto3
 
-from amplify.backend.function.getUser.src.index import handler
+from amplify.backend.function.postUser.src.index import handler
 
 table_name = 'userTable'
 region = 'eu-west-1'
 
-def create_table_and_user():
+def create_table():
     dynamodb = boto3.resource('dynamodb', region_name=region)
     table = dynamodb.create_table(
         TableName=table_name,
@@ -33,32 +33,19 @@ def create_table_and_user():
         ProvisionedThroughput={'ReadCapacityUnits': 1, 'WriteCapacityUnits': 1}
     )
     table.wait_until_exists()
-    # Ajoute un utilisateur
-    table.put_item(Item={'userId': '123', 'email': 'test@example.com'})
     return table
 
-def test_get_user():
+def test_post_user():
     with mock_aws():
         os.environ['USER_TABLE'] = table_name
         os.environ['AWS_REGION'] = region
-        create_table_and_user()
+        create_table()
         event = {
-            'queryStringParameters': {'userId': '123'}
+            'body': json.dumps({'userId': '123', 'email': 'test@example.com'})
         }
         response = handler(event, None)
         assert response['statusCode'] == 200
         body = json.loads(response['body'])
         assert body['userId'] == '123'
         assert body['email'] == 'test@example.com'
-
-def test_get_user_not_found():
-    with mock_aws():
-        os.environ['USER_TABLE'] = table_name
-        os.environ['AWS_REGION'] = region
-        create_table_and_user()
-        event = {
-            'queryStringParameters': {'userId': 'notfound'}
-        }
-        response = handler(event, None)
-        assert response['statusCode'] == 404
-        assert 'User not found' in response['body']
+        assert body['message'] == 'User created'
