@@ -1,4 +1,22 @@
 export type AmplifyDependentResourcesAttributes = {
+  "api": {
+    "get": {
+      "ApiId": "string",
+      "ApiName": "string",
+      "RootUrl": "string"
+    }
+  },
+  "auth": {
+    "tddproject": {
+      "AppClientID": "string",
+      "AppClientIDWeb": "string",
+      "IdentityPoolId": "string",
+      "IdentityPoolName": "string",
+      "UserPoolArn": "string",
+      "UserPoolId": "string",
+      "UserPoolName": "string"
+    }
+  },
   "function": {
     "getUser": {
       "Arn": "string",

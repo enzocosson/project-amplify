@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-tddproject-dev-a95a5-unauthRole",
       "StackName": "amplify-tddproject-dev-a95a5",
       "StackId": "arn:aws:cloudformation:eu-west-1:703671910542:stack/amplify-tddproject-dev-a95a5/62cb3590-5745-11f0-89d4-0a87bd64cd1b",
-      "AmplifyAppId": "d2sb80dban3yeb"
+      "AmplifyAppId": "d2sb80dban3yeb",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-tddproject-dev-a95a5-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "function": {
@@ -19,15 +20,21 @@
         },
         "getUser": {
           "deploymentBucketName": "amplify-tddproject-dev-a95a5-deployment",
-          "s3Key": "amplify-builds/getUser-6e793951372f5a444869-build.zip"
+          "s3Key": "amplify-builds/getUser-6462474c664f4d5a7156-build.zip"
         },
         "postUser": {
           "deploymentBucketName": "amplify-tddproject-dev-a95a5-deployment",
-          "s3Key": "amplify-builds/postUser-59515448544d4a574176-build.zip"
+          "s3Key": "amplify-builds/postUser-6a714d7937524739374d-build.zip"
         }
       },
       "storage": {
         "userTable": {}
+      },
+      "auth": {
+        "tddproject": {}
+      },
+      "api": {
+        "get": {}
       }
     }
   }

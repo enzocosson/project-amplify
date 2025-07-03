@@ -1,12 +1,12 @@
-import UserManager from './UserManager';
-import './App.css'
+import UserManager from "./UserManager";
+import "./App.css";
 
 function App() {
   return (
     <>
       <UserManager />
     </>
-  )
+  );
 }
 
-export default App
+export default App;

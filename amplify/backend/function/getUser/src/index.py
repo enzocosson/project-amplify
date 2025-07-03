@@ -1,6 +1,7 @@
 import json
 import boto3
 import os
+from boto3.dynamodb.conditions import Attr
 
 def handler(event, context):
     print('received event:')
@@ -11,17 +12,30 @@ def handler(event, context):
         table_name = os.environ.get('USER_TABLE', 'userTable')
         table = dynamodb.Table(table_name)
         params = event.get('queryStringParameters') or {}
-        user_id = params.get('userId')
-        if not user_id:
+        email = params.get('email')
+        if not email:
             return {
                 'statusCode': 400,
-                'body': json.dumps('userId is required')
+                'headers': {
+                    'Access-Control-Allow-Headers': '*',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                },
+                'body': json.dumps('email is required')
             }
-        response = table.get_item(Key={'userId': user_id})
-        item = response.get('Item')
-        if not item:
+        # Correction de l'import pour Attr
+        response = table.scan(
+            FilterExpression=Attr('email').eq(email)
+        )
+        items = response.get('Items', [])
+        if not items:
             return {
                 'statusCode': 404,
+                'headers': {
+                    'Access-Control-Allow-Headers': '*',
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+                },
                 'body': json.dumps('User not found')
             }
         return {
@@ -31,11 +45,16 @@ def handler(event, context):
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
             },
-            'body': json.dumps(item)
+            'body': json.dumps(items[0])
         }
     except Exception as e:
         print('Error:', str(e))
         return {
             'statusCode': 500,
+            'headers': {
+                'Access-Control-Allow-Headers': '*',
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
+            },
             'body': json.dumps('Internal server error: ' + str(e))
         }

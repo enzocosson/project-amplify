@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "paths": {
+    "/get": {
+      "name": "/get",
+      "lambdaFunction": "getUser",
+      "permissions": {
+        "setting": "open"
+      }
+    },
+    "/post": {
+      "name": "/post",
+      "lambdaFunction": "postUser",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}
