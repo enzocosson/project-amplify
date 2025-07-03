@@ -53,8 +53,6 @@ __pycache__/
 *.egg-info/
 *.egg
 *.env
-.venv/
-venv/
 ENV/
 
 # Amplify
