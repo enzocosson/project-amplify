@@ -15,18 +15,6 @@
     },
     "s3Key": {
       "Type": "String"
-    },
-    "storageuserTableName": {
-      "Type": "String",
-      "Default": "storageuserTableName"
-    },
-    "storageuserTableArn": {
-      "Type": "String",
-      "Default": "storageuserTableArn"
-    },
-    "storageuserTableStreamArn": {
-      "Type": "String",
-      "Default": "storageuserTableStreamArn"
     }
   },
   "Conditions": {
@@ -59,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "userHandler",
+            "getUser",
             {
               "Fn::Join": [
                 "",
                 [
-                  "userHandler",
+                  "getUser",
                   "-",
                   {
                     "Ref": "env"
@@ -81,15 +69,6 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "STORAGE_USERTABLE_NAME": {
-              "Ref": "storageuserTableName"
-            },
-            "STORAGE_USERTABLE_ARN": {
-              "Ref": "storageuserTableArn"
-            },
-            "STORAGE_USERTABLE_STREAMARN": {
-              "Ref": "storageuserTableStreamArn"
             }
           }
         },
@@ -110,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "tddprojectLambdaRole60009bbd",
+            "tddprojectLambdaRole91e32677",
             {
               "Fn::Join": [
                 "",
                 [
-                  "tddprojectLambdaRole60009bbd",
+                  "tddprojectLambdaRole91e32677",
                   "-",
                   {
                     "Ref": "env"

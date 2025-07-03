@@ -5,14 +5,8 @@
     "fieldName": "userId",
     "fieldType": "string"
   },
-  "gsi": [
-    {
-      "name": "email",
-      "partitionKey": {
-        "fieldName": "userId",
-        "fieldType": "string"
-      }
-    }
-  ],
+  "partitionKeyName": "userId",
+  "partitionKeyType": "string",
+  "gsi": [],
   "triggerFunctions": []
 }

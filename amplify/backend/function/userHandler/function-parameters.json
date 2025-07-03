@@ -1,13 +1,4 @@
 {
   "lambdaLayers": [],
-  "permissions": {
-    "storage": {
-      "userTable": [
-        "create",
-        "read",
-        "update",
-        "delete"
-      ]
-    }
-  }
+  "permissions": {}
 }
